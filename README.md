@@ -4,15 +4,22 @@
 
 
 `git clone git@github.com:daltibamilena/boleto_laravel_api.git`
+
 `cd boleto_laravel_api`
+
 `sh docker/setup.sh`
+
 `docker-compose up -d`
+
 
 
 ## How to set up first time
 `docker compose exec app bash`
+
 `php artisan key:generate`
+
 `php artisan config:cache`
+
 `composer install`
 
 ## Routes
