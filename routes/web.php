@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItauController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/itau/verificador_nn/{number}', [ItauController::class, 'digitoNossoNumero']);
+Route::post('/itau/send_boleto', [ItauController::class, 'generateBoleto']);
