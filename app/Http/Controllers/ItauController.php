@@ -13,8 +13,7 @@ class ItauController extends Controller
         return $laravelBoleto->itauNossoNumero($agencia, $conta. '' .$digito, $carteira, $id);
     }
 
-    public function generateBoleto(Request $request)
-    {
+    private function formatDataBoleto($request) {
         $beneficiario = new \Eduardokum\LaravelBoleto\Pessoa([
         'documento' => $request->beneficiario["documento"],
         'nome'      => $request->beneficiario["nome"],
@@ -35,7 +34,6 @@ class ItauController extends Controller
         'cidade'    => $request->pagador["nome_cidade"],
         ]);
 
-
         $itau = new \Eduardokum\LaravelBoleto\Boleto\Banco\Itau([
             'logo'                      => resource_path() . '/images/' . $request->beneficiario['logo'],
             'dataVencimento'            => Carbon::createFromFormat('Y-m-d', $request->boleto['data_vencimento']),
@@ -54,6 +52,16 @@ class ItauController extends Controller
             'instrucoes'                => $request->boleto["instrucoes"],
         ]);
 
-        return $itau->renderHTML(true);
+        return $itau;
+    }
+
+    public function generateBoletoHtml(Request $request)
+    {
+        return $this->formatDataBoleto($request)->renderHTML(true);
+    }
+
+    public function generateBoletoPdf(Request $request)
+    {
+        return $this->formatDataBoleto($request)->renderPDF(true);
     }
 }

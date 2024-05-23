@@ -19,5 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/itau/verificador_nn/{number}', [ItauController::class, 'digitoNossoNumero']);
-Route::post('/itau/send_boleto', [ItauController::class, 'generateBoleto']);
+Route::post('/itau/export/html', [ItauController::class, 'generateBoletoHtml']);
+Route::post('/itau/export/pdf', [ItauController::class, 'generateBoletoPdf']);

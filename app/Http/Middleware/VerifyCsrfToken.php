@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'itau/send_boleto'
+        '/itau/export/html',
+        '/itau/export/pdf'
     ];
 }
