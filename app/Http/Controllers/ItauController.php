@@ -22,6 +22,7 @@ class ItauController extends Controller
         'bairro'    => $request->beneficiario["nome_bairro"],
         'uf'        => $request->beneficiario["sigla_UF"],
         'cidade'    => $request->beneficiario["nome_cidade"],
+        'numero'    => $request->beneficiario["numero"],
         ]);
 
         $pagador = new \Eduardokum\LaravelBoleto\Pessoa([
@@ -38,7 +39,7 @@ class ItauController extends Controller
             'logo'                      => resource_path() . '/images/' . $request->beneficiario['logo'],
             'dataVencimento'            => Carbon::createFromFormat('Y-m-d', $request->boleto['data_vencimento']),
             'valor'                     => $request->boleto['valor_titulo'],
-            'numero'                    => $this->digitoNossoNumero($request->beneficiario["agencia"], $request->beneficiario["conta"], $request->beneficiario["digito"],$request->beneficiario["carteira"],$request->boleto['numero_nosso_numero']),
+            'numero'                    => $request->boleto['numero_nosso_numero'] . "-" . $this->digitoNossoNumero($request->beneficiario["agencia"], $request->beneficiario["conta"], $request->beneficiario["digito"],$request->beneficiario["carteira"],$request->boleto['numero_nosso_numero']),
             'numeroDocumento'           => $request->boleto['numero_nosso_numero'],
             'pagador'                   => $pagador,
             'beneficiario'              => $beneficiario,
@@ -47,7 +48,6 @@ class ItauController extends Controller
             'conta'                     => $request->beneficiario["conta"],
             'multa'                     => $request->boleto["multa"],
             'juros'                     => $request->boleto["juros"],
-            'jurosApos'                 => $request->boleto["juros_apos"],
             'descricaoDemonstrativo'    => $request->boleto["demonstrativo"],
             'instrucoes'                => $request->boleto["instrucoes"],
         ]);
